@@ -19,7 +19,7 @@ contract BEEPERSScanner {
     // ============================================================
 
     address public constant BEEPERS_NFT =
-        0xaa4c702152894addf49e2644147d2b7ea389f8ad;
+        0xAA4C702152894AddF49E2644147d2B7eA389f8Ad;
 
     address public constant NVDA_TOKEN =
         0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC;
