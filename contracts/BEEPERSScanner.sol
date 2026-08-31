@@ -2,7 +2,10 @@
 pragma solidity ^0.8.24;
 
 interface IERC20 {
-    function balanceOf(address account) external view returns (uint256);
+    function balanceOf(address account)
+        external
+        view
+        returns (uint256);
 
     function transfer(address to, uint256 amount)
         external
@@ -10,7 +13,10 @@ interface IERC20 {
 }
 
 interface IERC721 {
-    function ownerOf(uint256 tokenId) external view returns (address);
+    function ownerOf(uint256 tokenId)
+        external
+        view
+        returns (address);
 }
 
 contract BEEPERSScanner {
@@ -19,10 +25,10 @@ contract BEEPERSScanner {
     // ============================================================
 
     address public constant BEEPERS_NFT =
-        0xAA4C702152894AddF49E2644147d2B7eA389f8Ad;
+        address(bytes20(hex"aa4c702152894addf49e2644147d2b7ea389f8ad"));
 
     address public constant NVDA_TOKEN =
-        0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC;
+        address(bytes20(hex"d0601ce157db5bdc3162bba2c2a2c8a5320d9eec"));
 
     // ============================================================
     // STATE
@@ -110,9 +116,7 @@ contract BEEPERSScanner {
             return;
         }
 
-        // IMPORTANT:
-        // Mark as won BEFORE transfer.
-        // This protects against reentrancy/race conditions.
+        // Mark as won before transfer
         hasWon[tokenId] = true;
 
         // Winner takes entire pool
@@ -166,8 +170,15 @@ contract BEEPERSScanner {
         uint256 balance =
             IERC20(NVDA_TOKEN).balanceOf(address(this));
 
-        require(amount > 0, "Amount must be greater than zero");
-        require(amount <= balance, "Insufficient pool balance");
+        require(
+            amount > 0,
+            "Amount must be greater than zero"
+        );
+
+        require(
+            amount <= balance,
+            "Insufficient pool balance"
+        );
 
         bool success =
             IERC20(NVDA_TOKEN).transfer(
@@ -193,7 +204,10 @@ contract BEEPERSScanner {
             "Invalid owner"
         );
 
-        emit OwnershipTransferred(owner, newOwner);
+        emit OwnershipTransferred(
+            owner,
+            newOwner
+        );
 
         owner = newOwner;
     }
